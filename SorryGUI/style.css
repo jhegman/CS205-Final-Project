@@ -1,0 +1,8 @@
+.root{
+    -fx-background-image: url("Sorry.jpg");
+}
+
+#pickCard {
+  -fx-background-image: url("backCard.png");
+}
+
