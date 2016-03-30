@@ -184,8 +184,28 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
     Moves pawn 1 space forward
      */
     public void movePawn(Pawn p){
-        tiles.get(p.getLocation() +1).getChildren().add(p.getCircle());
-        p.setLocation(p.getLocation()+1);
+        if(p.getLocation() == 59){
+            tiles.get(0).getChildren().add(p.getCircle());
+            p.setLocation(0);
+        }
+
+        else{
+            if(p.getLocation() == 0){
+            slide(p);
+            }
+            else{
+                tiles.get(p.getLocation() +1).getChildren().add(p.getCircle());
+                p.setLocation(p.getLocation()+1);
+            }
+        }
+    }
+
+    /*
+    If pawns lands on slide, slides to end
+     */
+    public void slide(Pawn p){
+        tiles.get(p.getLocation() +4).getChildren().add(p.getCircle());
+        p.setLocation(p.getLocation()+4);
     }
 
 }
