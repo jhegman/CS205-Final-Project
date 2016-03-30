@@ -2,6 +2,7 @@
 public class Card
 {
 
+   //CONSTANTS 
    public static final int ONE = 1;
    public static final int TWO = 2;
    public static final int THREE = 3;
@@ -15,10 +16,12 @@ public class Card
    public static final int SORRY = 11;  
 
 
+   //Variables
    private int number;
    private String description;
    
 
+   //Set card
    public Card(int aNumber)
    {
    
@@ -26,6 +29,7 @@ public class Card
    
    }
    
+   //Get card number
    public int getNumber()
    {
    
@@ -85,7 +89,7 @@ public class Card
       
       
       
-      
+      //Get description on card
       public String getDescription()
       {
       
@@ -144,7 +148,7 @@ public class Card
       }
       
       
-      
+      //Inoformation on each card in string form
       public String toString()
       {
       

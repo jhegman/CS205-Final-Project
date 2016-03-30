@@ -9,6 +9,7 @@ public class Deck extends Card
 
       final int CARDS_IN_DECK = 45;
 
+      //Create main deck stack and discard stack
       private ArrayList<Card> deck = new ArrayList<Card>();
       private ArrayList<Card> discard = new ArrayList<Card>();
       
@@ -19,6 +20,7 @@ public class Deck extends Card
             freshDeck();
       }
       
+      //Create freshdeck of cards
       public void freshDeck()
       {
       
@@ -56,6 +58,7 @@ public class Deck extends Card
        
        }
        
+       //Draw top card and when run out, recycle cards
        public Card drawCard()
        {
        
