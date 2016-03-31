@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="629.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
@@ -28,6 +30,11 @@
             <Pane fx:id="redHome" layoutX="482.0" layoutY="106.0" prefHeight="65.0" prefWidth="65.0" />
             <Button fx:id="pickCard" layoutX="310.0" layoutY="239.0" mnemonicParsing="false" onAction="#newCard" prefHeight="70.0" prefWidth="105.0" rotate="90.0" />
             <Pane fx:id="discardCard" layoutX="155.0" layoutY="222.0" prefHeight="105.0" prefWidth="70.0" />
+            <Text fx:id="textOutput" layoutX="173.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="198.0">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
          </children></Pane>
    </center>
 </BorderPane>

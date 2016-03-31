@@ -10,6 +10,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
+import javafx.scene.text.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +34,10 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
     @FXML
     private Button pickCard;
 
+    @FXML
+    private Text textOutput;
 
+    private Deck deck;
     private ArrayList<StackPane> tiles;
     private Pawn[] bluePawns;
     private Pawn[] yellowPawns;
@@ -40,6 +45,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
     private Pawn[] greenPawns;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+        deck = new Deck();
         tiles = new ArrayList(64);//Create a list that holds all stack panes for top row
         ArrayList<StackPane> leftTiles = new ArrayList(16);
         ArrayList<StackPane> bottomTiles = new ArrayList(16);
@@ -111,12 +117,14 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
     When Card Pile is clicked, this method displays a card.
      */
     public void newCard(){
-        //getCard() from Deck and then display that card
-        File file = new File("frontCard.png");
+        Card currentCard = deck.drawCard();
+        String cardNumber = Integer.toString(currentCard.getNumber());
+        File file = new File("cards/"+cardNumber+".png");
         Image card = new Image(file.toURI().toString());
         ImageView showCard = new ImageView();
         showCard.setImage(card);
         discardCard.getChildren().add(showCard);
+        textOutput.setText(currentCard.toString());
     }
 
 
