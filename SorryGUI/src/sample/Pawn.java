@@ -16,6 +16,8 @@ private int id;
         Circle circle = new Circle(10);
         circle.setFill(c);
         circle.setId(id);
+        circle.setStroke(Color.BLACK);
+        circle.setStrokeWidth(1.5);
         this.circle = circle;
         location = 0;
     }

@@ -1,4 +1,5 @@
-public class Main
+package sample;
+public class dealCard
 {
 
    public static void main(String[] args)

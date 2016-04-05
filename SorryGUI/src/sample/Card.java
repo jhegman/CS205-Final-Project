@@ -1,4 +1,4 @@
-
+package sample;
 public class Card
 {
 
@@ -151,9 +151,25 @@ public class Card
       //Inoformation on each card in string form
       public String toString()
       {
-      
-         String str = "\nNumber: " + getNumber() + "\nDescription: " + getDescription();
-         
+          String str = "";
+          int num = getNumber();
+          if(num == 6 || num == 7){
+              num++;
+          }
+          else if(num>=8 && num<11){
+              num = num +2;
+          }
+          else if(num == 11){
+              num = 13;
+          }
+
+          if(num == 13) {
+              str = "\nCard: Sorry!" + "\nDescription: " + getDescription();
+
+          }
+          else{
+              str = "\nCard: " + num + "\nDescription: " + getDescription();
+          }
          return str;
       
       
