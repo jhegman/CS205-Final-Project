@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class board 
 {
-	//the board starts on the yellow side and moves clockwise around the board
+	//the board starts on the green side and moves clockwise around the board from the top left
 	public space[] board=new space[60];
 	public space[] userSafe=new space[6];
 	public space[] compSafe=new space[6];
@@ -15,20 +15,20 @@ public class board
 	public board()
 	{
 		int place=0;
-		String color="yellow";
+		String color="green";
 		for(int i=0;i<4;i++)
 		{
 			if(i==1)
 			{
-				color="green";						
+				color="red";						
 			}
 			else if(i==2)
 			{
-				color="red";
+				color="blue";
 			}
 			else if(i==3)
 			{
-				color="blue";
+				color="yellow";
 			}
 			for(int j=0;j<15;j++)
 			{
@@ -53,8 +53,8 @@ public class board
 		}
 		for(int i=0;i<6;i++)
 		{
-			userSafe[i]=new space("safe", "yellow", false);
-			compSafe[i]=new space("safe", "red", false);
+			userSafe[i]=new space("safe", "blue", false);
+			compSafe[i]=new space("safe", "green", false);
 		}
 		userStart=4;
 		userHome=0;
@@ -110,7 +110,7 @@ public class board
 		{
 			System.out.println("Illegal Move!");
 		}
-		else if(endSpace.getType().equals("slidestart") && (startSpace.getPlayer().equals("user") && !(endSpace.getColor().equals("yellow"))))
+		else if(endSpace.getType().equals("slidestart") && (startSpace.getPlayer().equals("user") && !(endSpace.getColor().equals("blue"))))
 		{
 			bump(start,end);
 			end++;
@@ -122,7 +122,7 @@ public class board
 			board[end-1].setOccupied(true, "player");
 			board[start+1].setOccupied(false, "none");
 		}
-		else if(endSpace.getType().equals("slidestart") && (startSpace.getPlayer().equals("computer") && !(endSpace.getColor().equals("red"))))
+		else if(endSpace.getType().equals("slidestart") && (startSpace.getPlayer().equals("computer") && !(endSpace.getColor().equals("green"))))
 		{
 			bump(start,end);
 			end++;
@@ -154,24 +154,24 @@ public class board
 	public void moveCompStart()
 	{
 		compStart--;
-		board[34].setOccupied(true, "computer");
+		board[4].setOccupied(true, "computer");
 	}
 	//move a pawn out of the user's start space
 	public void moveUserStart()
 	{
 		userStart--;
-		board[4].setOccupied(true, "user");
+		board[34].setOccupied(true, "user");
 	}
 	//move a pawn into the computer's safezone(from the space adjacent to it)
 	public void moveCompSafe(int amount)
 	{
-		board[32].setOccupied(false, "none");
+		board[2].setOccupied(false, "none");
 		compSafe[amount-1].setOccupied(true, "computer");
 	}
 	//move a pawn into the user's safe zone(from the space adjacent to it)
 	public void moveUserSafe(int amount)
 	{
-		board[2].setOccupied(false, "none");
+		board[32].setOccupied(false, "none");
 		userSafe[amount-1].setOccupied(true, "user");
 	}
 	//move a pawn into the computer's home space

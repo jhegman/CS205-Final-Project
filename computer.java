@@ -20,7 +20,7 @@ public class computer
 	public computer(boolean n)
 	{
 		nice=n;
-		color="red";
+		color="green";
 	}
 	//Get the positions of all computer pawns on the board and in the safe zone
 	public void getPositions(board gameBoard)
@@ -33,7 +33,7 @@ public class computer
 	{
 		for(int i:pawnBoardPositions)
 		{
-			if(i>0 && i<=32 && movementValue+i>32 && movementValue+i<39 && !(pawnSafePositions.contains((movementValue+i)-33)))
+			if(i>0 && i<=2 && movementValue+i>2 && movementValue+i<9 && !(pawnSafePositions.contains((movementValue+i)-3)))
 			{
 				return i;
 			}
@@ -89,7 +89,7 @@ public class computer
 			//System.out.println("tugwos");
 
 			//move a pawn out of the start space if able
-			if((gameBoard.getCompStart()>0) && !(gameBoard.board[34].getPlayer().equals("computer")))
+			if((gameBoard.getCompStart()>0) && !(gameBoard.board[4].getPlayer().equals("computer")))
 			{
 				gameBoard.moveCompStart();
 				moved=true;
@@ -183,7 +183,7 @@ public class computer
 		}
 		else if(cardValue==2)
 		{
-			if((gameBoard.getCompStart()>0) && !(gameBoard.board[34].getPlayer().equals("computer")))
+			if((gameBoard.getCompStart()>0) && !(gameBoard.board[4].getPlayer().equals("computer")))
 			{
 				gameBoard.moveCompStart();
 			}
