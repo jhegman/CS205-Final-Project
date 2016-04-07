@@ -11,9 +11,9 @@ public class Card
    public static final int SEVEN = 6;
    public static final int EIGHT = 7;
    public static final int TEN = 8;
-   public static final int ELEVEN = 9; 
+   public static final int ELEVEN = 9;
    public static final int TWELVE = 10;
-   public static final int SORRY = 11;  
+   public static final int SORRY = 11;
 
 
    //Variables
@@ -86,6 +86,8 @@ public class Card
       return number;
       
       }
+
+
       
       
       
@@ -151,7 +153,7 @@ public class Card
       //Inoformation on each card in string form
       public String toString()
       {
-          String str = "";
+          String str;
           int num = getNumber();
           if(num == 6 || num == 7){
               num++;
