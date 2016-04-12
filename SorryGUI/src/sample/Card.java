@@ -87,6 +87,21 @@ public class Card
       
       }
 
+   //Get card number
+   public int getMoves() {
+      int moves = getNumber();
+      if(moves == 6 || moves == 7){
+         moves ++;
+      }
+      else if(moves>=8 && moves<=10){
+         moves = moves + 2;
+      }
+      else if(moves == 11){
+         moves = 13;
+      }
+      return moves;
+   }
+
 
       
       
