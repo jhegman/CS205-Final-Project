@@ -48,7 +48,11 @@
                </font>
             </Button>
             <Text fx:id="playerTurn" layoutX="92.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="360.21875" />
-            <TextField fx:id="playerName" layoutX="236.0" layoutY="139.0" prefHeight="27.0" prefWidth="119.0" />
+            <TextField fx:id="playerName" layoutX="236.0" layoutY="142.0" prefHeight="15.0" prefWidth="119.0">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </TextField>
             <Label layoutX="144.0" layoutY="144.0" prefHeight="17.0" prefWidth="91.0" text="Player Name: " />
          </children></Pane>
    </center>

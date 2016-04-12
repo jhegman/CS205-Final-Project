@@ -23,40 +23,42 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Controller implements Initializable,EventHandler<MouseEvent>{
 
     @FXML
-    private BorderPane borderPane;
+    protected BorderPane borderPane;
 
     @FXML
-    private HBox topPane,bottomPane;
+    protected HBox topPane,bottomPane;
 
     @FXML
-    private VBox rightPane,leftPane;
+    protected VBox rightPane,leftPane;
 
     @FXML
-    private Pane discardCard, blueHome,yellowHome,greenHome,redHome;
+    protected Pane discardCard, blueHome,yellowHome,greenHome,redHome;
 
     @FXML
-    private Button pickCard;
+    protected Button pickCard;
 
     @FXML
-    private TextField playerName;
+    protected TextField playerName;
 
     @FXML
-    private Text textOutput,playerTurn;
+    protected Text textOutput,playerTurn;
 
-    private Deck deck;
-    private ArrayList<StackPane> tiles;
-    private Pawn[] bluePawns;
-    private Pawn[] yellowPawns;
-    private Pawn[] redPawns;
-    private Pawn[] greenPawns;
-    private Card currentCard;
-    private int startGameClicks;
+    protected Deck deck;
+    protected ArrayList<StackPane> tiles;
+    protected Pawn[] bluePawns;
+    protected Pawn[] yellowPawns;
+    protected Pawn[] redPawns;
+    protected Pawn[] greenPawns;
+    protected Card currentCard;
+    protected int startGameClicks;
     boolean playerOneTurn = true;
+    boolean playerTwoTurn = false;
     String nameOfPlayer;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -99,6 +101,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
                 this.yellowPawns = spawnPawns(yellowHome, Color.YELLOW);
                 this.greenPawns = spawnPawns(greenHome, Color.GREEN);
                 this.redPawns = spawnPawns(redHome, Color.RED);
+
 
                 for (int i = 0; i < 4; i++) {
                     bluePawns[i].getCircle().setOnMouseClicked(this);
@@ -205,10 +208,27 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
         this.currentCard = currentCard;
         enablePawns(bluePawns);
             playerOneTurn = false;
-         //check for moves, if no moves, then it is computers turn
+
+            //check for moves, if no moves, then it is computers turn
+            if(!checkForMoves() && !playerTwoTurn){
+                playerTurn.setText("No Moves");
+                //Pause 2 Seconds
+                Timeline waitTwo = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+
+                        computerTurn();
+                    }
+                }));
+                waitTwo.setCycleCount(1);
+                waitTwo.play();
+            }
+
+            }
         }
 
-    }
+
 
 
     @Override
@@ -219,7 +239,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
                 Circle c = (Circle) event.getSource();
                 movePawnFromStart(bluePawns[Integer.parseInt(c.getId())],Color.BLUE);
                 if(currentCard.getNumber() ==2){
-                    animatePawn(1,bluePawns[Integer.parseInt(c.getId())]);
+                    animateUserPawn(1,bluePawns[Integer.parseInt(c.getId())]);
                 }
                 disablePawns(bluePawns);//disable pawns again
                 home = true;
@@ -237,9 +257,6 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
             if (redHome.getChildren().contains(event.getSource())){
                 Circle c = (Circle) event.getSource();
                 movePawnFromStart(redPawns[Integer.parseInt(c.getId())],Color.RED);
-                if(currentCard.getNumber() ==2){
-                    animatePawn(1,bluePawns[Integer.parseInt(c.getId())]);
-                }
                 home = true;
             }
 
@@ -255,21 +272,21 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
                 Paint color = c.getFill();
                 if(color == Color.BLUE){
                     disableUsersPawns(bluePawns,bluePawns[Integer.parseInt(c.getId())]);
-                    animatePawn(currentCard.getNumber(),bluePawns[Integer.parseInt(c.getId())]);
+                    animateUserPawn(currentCard.getNumber(),bluePawns[Integer.parseInt(c.getId())]);
                     disablePawns(bluePawns);//disable pawns again
-                    computerTurn();
+                    //computerTurn();
                     //COMPUTER TURN, re enable card button, make move
                 }
                 if(color == Color.RED){
-                    animatePawn(currentCard.getNumber(),redPawns[Integer.parseInt(c.getId())]);
+                    animateUserPawn(currentCard.getNumber(),redPawns[Integer.parseInt(c.getId())]);
                     disableUsersPawns(redPawns,redPawns[Integer.parseInt(c.getId())]);
                 }
                 if(color == Color.YELLOW){
-                    animatePawn(currentCard.getNumber(),yellowPawns[Integer.parseInt(c.getId())]);
+                    animateUserPawn(currentCard.getNumber(),yellowPawns[Integer.parseInt(c.getId())]);
                     disableUsersPawns(yellowPawns,yellowPawns[Integer.parseInt(c.getId())]);
                 }
                 if(color == Color.GREEN){
-                    animatePawn(currentCard.getNumber(),greenPawns[Integer.parseInt(c.getId())]);
+                    animateUserPawn(currentCard.getNumber(),greenPawns[Integer.parseInt(c.getId())]);
                     disableUsersPawns(greenPawns,greenPawns[Integer.parseInt(c.getId())]);
                 }
             }
@@ -322,7 +339,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
     /*
     Animates pawn forward a certain number of spaces
      */
-    public void animatePawn(int spaces, Pawn p){
+    public void animateUserPawn(int spaces, Pawn p){
         Timeline animate = new Timeline(new KeyFrame(Duration.seconds(.5), new EventHandler<ActionEvent>() {
 
             @Override
@@ -333,6 +350,13 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
         }));
         animate.setCycleCount(spaces);
         animate.play();
+        //If users turn, wait for animation to finish
+        animate.setOnFinished(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+            computerTurn();
+            }
+        });
+
     }
 
 
@@ -380,7 +404,9 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
 
         //Get Card, check if 1 or two
         playerOneTurn = true;
+        playerTwoTurn = true;
         newCard();
+        playerTwoTurn = false;
         if(currentCard.getNumber()<=2){
             movePawnFromStart(redPawns[1],Color.RED);
         }
@@ -388,13 +414,15 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
         disablePawns(bluePawns);
         disablePawns(redPawns);
 
+        //Animate Computer pawn, when animation done, print that it is users turn. If no moves, print No moves
+
         //Pause 2 Seconds
         Timeline waitTwo = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
 
-                playerTurn.setText(nameOfPlayer+ "'s Turn. Click deck to get card.");
+                playerTurn.setText(nameOfPlayer+ "'s Turn. Click deck to get card. Your pawn color is blue");
             }
         }));
         waitTwo.setCycleCount(1);
@@ -402,12 +430,28 @@ public class Controller implements Initializable,EventHandler<MouseEvent>{
     }
 
     /*
+    Check's to see if player has any moves.  Returns true if has moves, false if no moves
+     */
+    public boolean checkForMoves(){
+        //If card is not 1 or 2 and no pawns are outside, then no moves exist
+        if(currentCard.getNumber() >2 && blueHome.getChildren().contains(bluePawns[0].getCircle())
+            &&blueHome.getChildren().contains(bluePawns[1].getCircle())
+    && blueHome.getChildren().contains(bluePawns[2].getCircle()) && blueHome.getChildren().contains(bluePawns[3].getCircle())){
+     return false;
+    }
+        else{
+        return true;
+        }
+    }
+
+
+    /*
     Play Game
      */
     public void playGame() {
 
         //game Logic here
-        playerTurn.setText(nameOfPlayer+ "'s Turn. Click deck to get card");
+        playerTurn.setText(nameOfPlayer+ "'s Turn. Click deck to get card. Your pawn color is blue");
         disablePawns(bluePawns);
 
         }
