@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import java.io.*;
+import java.awt.Image;
 
 
 public class Main extends Application{
