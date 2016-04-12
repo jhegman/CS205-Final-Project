@@ -10,7 +10,7 @@ import javafx.scene.shape.Circle;
 public class Pawn extends Circle{
 private int location;
 private Circle circle;
-private int id;
+private int moves;
 
     public Pawn(Color c, String id){
         Circle circle = new Circle(10);
@@ -23,15 +23,34 @@ private int id;
     }
 
     public Circle getCircle(){
+
         return circle;
     }
 
 
     public int getLocation(){
+
         return location;
     }
 
     public void setLocation(int location){
+
         this.location = location;
+    }
+
+    public void setMoves(int moves){
+        this.moves = moves;
+    }
+
+    public void move(){
+        moves--;
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public void resetMoves(){
+        moves = 0;
     }
 }
