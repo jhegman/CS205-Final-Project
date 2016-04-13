@@ -38,19 +38,5 @@ private int moves;
         this.location = location;
     }
 
-    public void setMoves(int moves){
-        this.moves = moves;
-    }
 
-    public void move(){
-        moves--;
-    }
-
-    public int getMoves() {
-        return moves;
-    }
-
-    public void resetMoves(){
-        moves = 0;
-    }
 }
