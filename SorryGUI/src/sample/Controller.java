@@ -290,10 +290,15 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         if (p.getLocation() == 59) {
             tiles.get(0).getChildren().add(p.getCircle());
             p.setLocation(0);
+        
+            
+            
 
         } else {
             tiles.get(p.getLocation() + 1).getChildren().add(p.getCircle());
             p.setLocation(p.getLocation() + 1);
+            
+            
 
         }
     }
@@ -306,6 +311,8 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         if (p.getLocation() == 0) {
             tiles.get(59).getChildren().add(p.getCircle());
             p.setLocation(59);
+            
+            
 
         } else {
             tiles.get(p.getLocation() - 1).getChildren().add(p.getCircle());
@@ -327,11 +334,55 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 }
                 else{
                 movePawn(p);
-                }
-            }
-        }));
-        animate.setCycleCount(spaces);
-        animate.play();
+                            }
+                            
+               
+                
+        }}));
+        
+       
+       
+        
+       
+       //Slider meoth to determine if to slide/not
+       
+       int diff = 0;
+       if(spaces == 4)
+       {
+       
+         
+         animate.setCycleCount(spaces);
+         
+         diff  = slide(0, p);
+         animate.setCycleCount(spaces+diff);
+       
+                 
+         
+       }
+       
+       else{
+         diff  = slide(spaces, p);
+         animate.setCycleCount(spaces+diff);
+        
+       }
+       
+       
+      animate.play();
+       
+      
+       
+       
+       
+       
+       
+            
+            
+        
+        
+       
+        
+
+
         //If users turn, wait for animation to finish
         animate.setOnFinished(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
@@ -435,10 +486,111 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         disablePawns(bluePawns);
 
     }
+    
+    /*
+         Slide determines if the pawn has landed on a slide, and pushed pawn through to end of slide
+    */
+    public int slide(int spaces, Pawn p){
+    
+    
+       Color color;
+    
+       int diff = 0;
+       
+       /*
+       if(spaces == 4)
+       {
+       
+          //Determine location plus spaces to see if it is a slider spot
+          if(((p.getLocation()-spaces)%15==1))
+          {
+                //Get difference between end and current position to add to pawn to move it
+                diff = ((p.getLocation()-spaces)+3)-((p.getLocation()-spaces));
+                
+                
+          }
+          
+          //Determine location plus spaces to see if it a slider spot
+          else if(((p.getLocation()-spaces)%15==9))
+          {
+                //Get difference between end and current position to add to pawn to move it
+                diff = ((p.getLocation()-spaces)+4)-((p.getLocation()-spaces));
+                
+                
+                
+          }
+
+            
+       
+       
+       }
+       
+       */
+       
+       
+       
+       
+       
+     
+          //Determine location plus spaces to see if it is a slider spot
+          if(((p.getLocation()+spaces)%15==1))
+          {
+                
+                
+                //Exclude blue on blue
+                if(p.getLocation()+spaces == 31)
+                {
+                      disablePawns(bluePawns);
+          
+                }
+                
+                else{
+                
+                     //Get difference between end and current position to add to pawn to move it
+                     diff = (((p.getLocation()+spaces)-(p.getLocation()+spaces)+3));
+                
+                }
+          }
+          //Determine location plus spaces to see if it a slider spot
+          else if(((p.getLocation()+spaces)%15==9))
+          {
+                //Exclude blue on blue
+                if(p.getLocation()+spaces == 39)
+                {
+                      disablePawns(bluePawns);
+          
+                }
+                
+                else
+                {
+                
+                     //Get difference between end and current position to add to pawn to move it
+                     diff = (((p.getLocation()+spaces)-(p.getLocation()+spaces)+4));
+                
+
+                
+                }
+                
+          }
+          
+          
+      //return difference
+       return diff;
+      
+ } }    
+      
+             
+    
+       
+    
+    
 
 
 
-}
+
+
+
+
 
 
 
