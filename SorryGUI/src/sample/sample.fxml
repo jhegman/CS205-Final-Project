@@ -54,6 +54,7 @@
                </font>
             </TextField>
             <Label layoutX="144.0" layoutY="144.0" prefHeight="17.0" prefWidth="91.0" text="Player Name: " />
+            <VBox fx:id="blueSafe" layoutX="468.0" layoutY="317.0" prefHeight="229.0" prefWidth="43.0" />
          </children></Pane>
    </center>
 </BorderPane>

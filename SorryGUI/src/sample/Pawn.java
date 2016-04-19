@@ -10,7 +10,8 @@ import javafx.scene.shape.Circle;
 public class Pawn extends Circle{
 private int location;
 private Circle circle;
-private int moves;
+private int safeZoneLocation;
+private boolean inSafeZone;
 
     public Pawn(Color c, String id){
         Circle circle = new Circle(10);
@@ -20,6 +21,7 @@ private int moves;
         circle.setStrokeWidth(1.5);
         this.circle = circle;
         location = 0;
+        inSafeZone = false;
     }
 
     public Circle getCircle(){
@@ -38,5 +40,19 @@ private int moves;
         this.location = location;
     }
 
+    public void setSafeZoneLocation(int location){
+        safeZoneLocation = location;
+    }
 
+    public int getSafeZoneLocation(){
+        return safeZoneLocation;
+    }
+
+    public boolean inSafeZone(){
+        return inSafeZone;
+    }
+
+    public void setInSafeZone(boolean b){
+        inSafeZone = b;
+    }
 }
