@@ -4,7 +4,11 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -17,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -60,14 +65,21 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     boolean playerTwoTurn = false;
     String nameOfPlayer;
     int occupied; //The space where the pawn will move to
+    int sorryClicks = 0; //How many times sorry function has been called
+    Pawn sorryPawn1;
+    Pawn sorryPawn2;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         deck = new Deck();
+        //noinspection unchecked
         tiles = new ArrayList(64);//Create a list that holds all stack panes for top row
+        //noinspection unchecked
         blueSafeZone = new ArrayList(6);
-        ArrayList<StackPane> leftTiles = new ArrayList(16);
-        ArrayList<StackPane> bottomTiles = new ArrayList(16);
+        //noinspection unchecked
+        @SuppressWarnings("unchecked") ArrayList<StackPane> leftTiles = new ArrayList(16);
+        //noinspection unchecked
+        @SuppressWarnings("unchecked") ArrayList<StackPane> bottomTiles = new ArrayList(16);
 
         //Create all 64 tiles
         tiles = createStackPanes(tiles, topPane, 16);
@@ -115,11 +127,10 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 }
                 playerName.setDisable(true);
                 nameOfPlayer = playerName.getText();
-                tiles.get(47).getChildren().add(bluePawns[0].getCircle());
-                bluePawns[0].setLocation(47);
-                tiles.get(55).getChildren().add(greenPawns[1].getCircle());
-                greenPawns[1].setLocation(55);
+                tiles.get(30).getChildren().add(greenPawns[0].getCircle());
+                greenPawns[0].setLocation(30);
                 playGame();
+                newWindow();
             }
         }
     }
@@ -215,7 +226,9 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             this.currentCard = currentCard;
             enablePawns(bluePawns);
             playerOneTurn = false;
-
+            if (currentCard.getMoves() == 13) {
+                playerTurn.setText("Click one of your pawns in home and then click a green pawn outside home to swap with");
+            }
             //check for moves, if no moves, then it is computers turn
             if (!checkForMoves() && !playerTwoTurn) {
                 playerTurn.setText("No Moves");
@@ -245,8 +258,31 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         Pawn b = bluePawns[Integer.parseInt(c.getId())];
         Pawn g = greenPawns[Integer.parseInt(c.getId())];
 
+        //Sorry! Card
+        if (currentCard.getMoves() == 13 && checkSorryMoves()) {
+            if (sorryClicks == 0 && c.getFill() == Color.BLUE) {
+                if (blueHome.getChildren().contains(b.getCircle())) {
+                    sorryPawn1 = b;
+                    enablePawns(greenPawns);
+                    sorryClicks++;
+                } else {
+                    playerTurn.setText("Must click pawn in home");
+                }
+            } else if (sorryClicks == 1 && c.getFill() == Color.GREEN) {
+                if (!greenHome.getChildren().contains(g.getCircle())) {
+                    disablePawns(bluePawns);
+                    sorryPawn2 = g;
+                    handleSorry(sorryPawn1, sorryPawn2);
+                    sorryClicks = 0;
+                    computerTurn();
+                } else {
+                    playerTurn.setText("Must click green pawn outside of start");
+                }
+            }
+        }
+
         //If pawns is in home,no pawn in the way and the card is a 1 or a 2
-        if (blueHome.getChildren().contains(event.getSource())
+        else if (blueHome.getChildren().contains(event.getSource())
                 && currentCard.getMoves() <= 2) {
 
             //check if a blue pawn is in the way
@@ -254,7 +290,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 playerTurn.setText("Not a valid move");
             } else {
                 if (checkIfOccupied(tiles.get(34), b).equals("bump")) {
-                    bump(b, 34);
+                    bump(34, Color.BLUE);
                 }
                 movePawnFromStart(b, Color.BLUE);
                 disablePawns(bluePawns);//disable pawns again
@@ -432,7 +468,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             public void handle(ActionEvent event) {
                 slide(p);
                 if (bump) {
-                    bump(p, occupied);
+                    bump(occupied, Color.BLUE);
                 }
                 computerTurn();
             }
@@ -558,8 +594,12 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     public boolean checkMoves(Pawn b) {
         boolean move = true;
         boolean backwards = false;
+        if (currentCard.getMoves() == 13 && !checkSorryMoves()) {
+            move = false;
+        }
         //Check if can move from home
-        if (blueHome.getChildren().contains(b.getCircle()) && currentCard.getMoves() > 2) {
+        else if (currentCard.getMoves() != 13
+                && blueHome.getChildren().contains(b.getCircle()) && currentCard.getMoves() > 2) {
             move = false;
         } else if (blueHome.getChildren().contains(b.getCircle())
                 && currentCard.getMoves() <= 2) {
@@ -617,9 +657,8 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     /*
     Bumps pawn back to home
      */
-    public void bump(Pawn p, int location) {
+    public void bump(int location, Color color) {
         double xLocation = 0, yLocation = 0;
-        Paint color = p.getCircle().getFill();
         int id = Integer.parseInt(tiles.get(location).getChildren().get(0).getId());
         switch (id) {
             case 1:
@@ -643,26 +682,74 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         }
     }
 
-
+    /*
+    Slide pawn
+     */
     public void slide(Pawn p) {
         if (p.getLocation() == 1 || p.getLocation() == 16 || p.getLocation() == 46) {
-            for(int i =0;i<3;i++) {
-                if (checkIfOccupied(tiles.get(p.getLocation()+1), p).equals("bump")) {
-                    bump(p, p.getLocation()+1);
+            for (int i = 0; i < 3; i++) {
+                if (checkIfOccupied(tiles.get(p.getLocation() + 1), p).equals("bump")) {
+                    bump(p.getLocation() + 1, Color.BLUE);
+                }
+                if (checkIfOccupied(tiles.get(p.getLocation() + 1), p).equals("true")) {
+                    bump(p.getLocation() + 1, Color.GREEN);
                 }
                 movePawn(p);
-                System.out.println(p.getLocation());
-                System.out.println(checkIfOccupied(tiles.get(p.getLocation()), p));
+
             }
         }
 
         if (p.getLocation() == 9 || p.getLocation() == 24 || p.getLocation() == 54) {
             for (int i = 0; i < 4; i++) {
-                if (checkIfOccupied(tiles.get(p.getLocation()+1), p).equals("bump")) {
-                    bump(p, p.getLocation()+1);
+                if (checkIfOccupied(tiles.get(p.getLocation() + 1), p).equals("bump")) {
+                    bump(p.getLocation() + 1, Color.BLUE);
+                }
+                if (checkIfOccupied(tiles.get(p.getLocation() + 1), p).equals("true")) {
+                    bump(p.getLocation() + 1, Color.GREEN);
                 }
                 movePawn(p);
             }
+        }
+    }
+
+    /*
+    Checks for sorry moves. Returns true if there is a move, False if no move
+     */
+    public boolean checkSorryMoves() {
+        int unmoveable = 0;
+        for (int i = 0; i < 4; i++) {
+            if (greenHome.getChildren().contains(greenPawns[i].getCircle())) {
+                unmoveable++;
+            }
+            // ADD IF GREEN IN SAFE ZONE
+        }
+        if (blueHome.getChildren().isEmpty()) {
+            unmoveable = 4;
+        }
+        return unmoveable < 4;
+    }
+
+    /*
+    Handle Sorry! Card
+     */
+    public void handleSorry(Pawn p1, Pawn p2) {
+        if (p1.getCircle().getFill() == Color.BLUE) {
+            int location = p2.getLocation();
+            tiles.get(location).getChildren().add(p1.getCircle());
+            p1.setLocation(location);
+            bump(location, Color.BLUE);
+        }
+    }
+
+    public void newWindow() {
+        try {
+            Group root = new Group();
+            Stage playerStage = new Stage();
+            playerStage.setTitle("Player");
+            playerStage.setScene(new Scene(root, 200, 50));
+            playerStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

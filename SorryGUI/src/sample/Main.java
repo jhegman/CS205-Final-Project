@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import java.io.*;
 
@@ -19,6 +20,7 @@ public class Main extends Application{
         File f = new File("style.css"); // open style sheet
         primaryStage.getScene().getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));//add image to stage
         primaryStage.show();
+
     }
 
 
