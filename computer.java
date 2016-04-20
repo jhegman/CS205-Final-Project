@@ -15,6 +15,7 @@ public class computer {
 	private int startSpace = 34;
 	// Pawns that will bump allies on a slide
 	private ArrayList<Integer> dontSlide = new ArrayList<Integer>();
+	boolean madeMove=true;
 
 	public computer(boolean n) {
 		nice = n;
@@ -170,6 +171,7 @@ public class computer {
 		// no moves area available
 		if (!moved) {
 			System.out.println("No moves");
+			madeMove=false;
 		}
 	}
 	//find a mean move for the computer, prioritizing hitting the the user's pawns in any way possible
@@ -193,6 +195,7 @@ public class computer {
 	// find a move for the computer, cards represented as an integer from 1-11
 	public int[] makeMove(board gameBoard, int cardValue) {
 		int moveValue;
+		madeMove=true;
 		if(cardValue==4)
 		{
 			moveValue=-4;
@@ -234,6 +237,14 @@ public class computer {
 			hitUser(gameBoard, moveValue);
 		}
 		int[] positions=gameBoard.returnPositions();
+		if(madeMove)
+		{
+			positions[1]=Math.abs(moveValue);
+		}
+		else{
+			positions[0]=0;
+			positions[1]=0;
+		}
 		return positions;
 	}
 	}
