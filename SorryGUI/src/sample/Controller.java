@@ -130,7 +130,6 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 tiles.get(30).getChildren().add(greenPawns[0].getCircle());
                 greenPawns[0].setLocation(30);
                 playGame();
-                newWindow();
             }
         }
     }

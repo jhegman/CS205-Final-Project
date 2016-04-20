@@ -35,8 +35,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="749" column="31" selection-start-line="749" selection-start-column="31" selection-end-line="749" selection-end-column="31" />
+            <state relative-caret-position="226">
+              <caret line="131" column="27" selection-start-line="131" selection-start-column="27" selection-end-line="131" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#initialize#0;class#Controller#0" expanded="false" />
@@ -1190,8 +1190,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="749" column="31" selection-start-line="749" selection-start-column="31" selection-end-line="749" selection-end-column="31" />
+        <state relative-caret-position="226">
+          <caret line="131" column="27" selection-start-line="131" selection-start-column="27" selection-end-line="131" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#initialize#0;class#Controller#0" expanded="false" />
