@@ -68,11 +68,6 @@ public class board
 	{
 		return compStart;
 	}
-	//get the number of pawns in the user's start space
-	public int getUserStart()
-	{
-		return userStart;
-	}
 	//swap the position of two pawns(with SORRY! card)
 	public void sorry(String player,int end)
 	{
@@ -162,7 +157,9 @@ public class board
 	public void moveInCompSafeZone(int start, int end)
 	{
 		compSafe[start].setOccupied(false, "none");
+		compStartPosition=start;
 		compSafe[end].setOccupied(true, "computer");
+		compEndPosition=end;
 	}
 	//move a pawn out of the computer's start space
 	public void moveCompStart()
@@ -171,12 +168,6 @@ public class board
 		board[4].setOccupied(true, "computer");
 		compStartPosition=-1;
 		compEndPosition=4;
-	}
-	//move a pawn out of the user's start space
-	public void moveUserStart()
-	{
-		userStart--;
-		board[34].setOccupied(true, "user");
 	}
 	//move a pawn into the computer's safezone(from the space adjacent to it)
 	public void moveCompSafe(int start, int end)
@@ -193,25 +184,13 @@ public class board
 			compSafe[end-3].setOccupied(true, "computer");
 		}
 	}
-	//move a pawn into the user's safe zone(from the space adjacent to it)
-	public void moveUserSafe(int amount)
-	{
-		board[32].setOccupied(false, "none");
-		userSafe[amount-1].setOccupied(true, "user");
-	}
 	//move a pawn into the computer's home space
 	public void moveCompHome(int start)
 	{
-		compStartPosition=60+start;
+		compStartPosition=start;
 		compEndPosition=70;
 		compSafe[start].setOccupied(false, "none");
 		compHome++;
-	}
-	//move a pawn into the user's home space
-	public void moveUserHome(int start)
-	{
-		compSafe[start].setOccupied(false, "none");
-		userHome++;
 	}
 	//return the positions of the computer's pawns on the main board
 	public ArrayList<Integer> getComputerBoardPositions()
@@ -240,32 +219,6 @@ public class board
 			}
 		}
 		return safePositions;
-	}
-	//return the positions of the user's pawns on the main board
-	public ArrayList<Integer> getUserBoardPositions()
-	{
-		ArrayList <Integer> uBoardPositions=new ArrayList <Integer>();
-		for(int i=0;i<board.length;i++)
-		{
-			if(board[i].getPlayer().equals("user"))
-			{
-				uBoardPositions.add(i);
-			}
-		}
-		return uBoardPositions;
-	}
-	//return the positions of the user's pawns in the safezone
-	public ArrayList<Integer> getUserSafePositions()
-	{
-		ArrayList <Integer> uSafePositions=new ArrayList <Integer>();
-		for(int i=0;i<userSafe.length;i++)
-		{
-			if(userSafe[i].getPlayer().equals("human"))
-			{
-				uSafePositions.add(i);
-			}
-		}
-		return uSafePositions;
 	}
 	//print out the board and safe zones with positions of all pawns and special tiles labeled
 	public void printBoard()
