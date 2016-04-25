@@ -1,3 +1,4 @@
+package sample;
 import java.util.ArrayList;
 
 public class computer {
@@ -236,7 +237,10 @@ public class computer {
 		{
 			hitUser(gameBoard, moveValue);
 		}
-		int[] positions=gameBoard.returnPositions();
+		int[] positions=new int[3];
+        int[] p=gameBoard.returnPositions();
+        positions[0]=p[0];
+        positions[2]=p[1];
 		if(madeMove)
 		{
 			positions[1]=Math.abs(moveValue);
@@ -246,5 +250,10 @@ public class computer {
 			positions[1]=0;
 		}
 		return positions;
+	}
+	public void gotBumped(board gameBoard, int location)
+	{
+		gameBoard.board[location].setOccupied(false,"none");
+		gameBoard.compStart++;
 	}
 	}

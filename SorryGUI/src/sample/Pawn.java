@@ -20,7 +20,7 @@ private boolean inSafeZone;
         circle.setStroke(Color.BLACK);
         circle.setStrokeWidth(1.5);
         this.circle = circle;
-        location = 0;
+        location = -1;
         inSafeZone = false;
     }
 

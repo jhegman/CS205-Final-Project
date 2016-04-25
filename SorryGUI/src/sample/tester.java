@@ -1,3 +1,4 @@
+package sample;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,7 +8,7 @@ public class tester {
 	{
 		board b=new board();
 		computer c=new computer(true);
-		ArrayList userPawns=b.getUserBoardPositions();
+		//ArrayList userPawns=b.getUserBoardPositions();
 		b.printBoard();
 		
 		//c.moveNice(b, 1);
