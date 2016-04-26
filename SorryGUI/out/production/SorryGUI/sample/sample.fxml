@@ -61,6 +61,18 @@
                   <Font size="10.0" />
                </font>
             </Button>
+            <Text fx:id="numBluePawnsHome" layoutX="444.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pawn's Home: 0">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Text>
+            <Text fx:id="numGreenPawnsHome" layoutX="25.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pawn's Home: 0">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Text>
+            <Pane fx:id="blueHomeCircle" layoutX="468.0" layoutY="287.0" prefHeight="55.0" prefWidth="56.0" />
+            <Pane fx:id="greenHomeCircle" layoutX="26.0" layoutY="195.0" prefHeight="52.0" prefWidth="51.0" />
          </children></Pane>
    </center>
 </BorderPane>

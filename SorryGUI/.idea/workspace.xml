@@ -55,10 +55,9 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="971" column="26" selection-start-line="971" selection-start-column="14" selection-end-line="971" selection-end-column="26" />
+            <state relative-caret-position="2685">
+              <caret line="709" column="55" selection-start-line="709" selection-start-column="55" selection-end-line="709" selection-end-column="55" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="method#initialize#0;class#Controller#0" expanded="false" />
                 <element signature="method#startGame#0;class#Controller#0" expanded="false" />
                 <element signature="method#startOver#0;class#Controller#0" expanded="false" />
@@ -70,15 +69,24 @@
                 <element signature="method#movePawnFromStart#0;class#Controller#0" expanded="false" />
                 <element signature="method#movePawn#0;class#Controller#0" expanded="false" />
                 <element signature="method#movePawnBackwards#0;class#Controller#0" expanded="false" />
+                <element signature="method#animateUserPawn#0;class#Controller#0" expanded="false" />
                 <element signature="method#animateComputerPawn#0;class#Controller#0" expanded="false" />
                 <element signature="method#disablePawns#0;class#Controller#0" expanded="false" />
                 <element signature="method#disableUsersPawns#0;class#Controller#0" expanded="false" />
                 <element signature="method#enablePawns#0;class#Controller#0" expanded="false" />
-                <element signature="method#computerTurn#0;class#Controller#0" expanded="false" />
                 <element signature="method#checkForMoves#0;class#Controller#0" expanded="false" />
+                <element signature="method#checkIfOccupied#0;class#Controller#0" expanded="false" />
                 <element signature="method#playGame#0;class#Controller#0" expanded="false" />
                 <element signature="method#checkMoves#0;class#Controller#0" expanded="false" />
+                <element signature="method#bump#0;class#Controller#0" expanded="false" />
+                <element signature="method#slide#0;class#Controller#0" expanded="false" />
+                <element signature="method#checkSorryMoves#0;class#Controller#0" expanded="false" />
+                <element signature="method#checkSwaps#0;class#Controller#0" expanded="false" />
+                <element signature="method#handleSorry#0;class#Controller#0" expanded="false" />
+                <element signature="method#handleSwap#0;class#Controller#0" expanded="false" />
+                <element signature="method#newWindow#0;class#Controller#0" expanded="false" />
                 <element signature="method#helpClicked#0;class#Controller#0" expanded="false" />
+                <element signature="method#addPawnsToHome#0;class#Controller#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -87,8 +95,8 @@
       <file leaf-file-name="sample.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/out/production/SorryGUI/sample/sample.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+            <state relative-caret-position="1140">
+              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -100,12 +108,14 @@
       <file leaf-file-name="ControllerPopup.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/ControllerPopup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="106" column="40" selection-start-line="106" selection-start-column="40" selection-end-line="106" selection-end-column="40" />
+            <state relative-caret-position="435">
+              <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#initialize#0;class#ControllerPopup#0" expanded="false" />
                 <element signature="method#handleTen#0;class#ControllerPopup#0" expanded="false" />
+                <element signature="method#handleSeven#0;class#ControllerPopup#0" expanded="false" />
+                <element signature="method#checkMoves#0;class#ControllerPopup#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -114,8 +124,8 @@
       <file leaf-file-name="Pawn.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Pawn.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+            <state relative-caret-position="225">
+              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="20" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -155,8 +165,8 @@
         <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
         <option value="$PROJECT_DIR$/src/sample/player.fxml" />
         <option value="$PROJECT_DIR$/src/sample/tester.java" />
-        <option value="$PROJECT_DIR$/src/sample/ControllerPopup.java" />
         <option value="$PROJECT_DIR$/style.css" />
+        <option value="$PROJECT_DIR$/src/sample/ControllerPopup.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
       </list>
     </option>
@@ -164,7 +174,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1280" />
-    <option name="height" value="716" />
+    <option name="height" value="717" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -191,7 +201,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -230,8 +241,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -537,33 +547,33 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="716" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1280" height="717" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32766616" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32612056" sideWeight="0.509375" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32612056" sideWeight="0.490625" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39876354" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32766616" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39876354" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32561728" sideWeight="0.490625" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39876354" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -619,7 +629,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#initialize#0;class#Controller#0" expanded="false" />
             <element signature="method#startGame#0;class#Controller#0" expanded="false" />
             <element signature="method#startOver#0;class#Controller#0" expanded="false" />
@@ -631,15 +640,24 @@
             <element signature="method#movePawnFromStart#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawn#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawnBackwards#0;class#Controller#0" expanded="false" />
+            <element signature="method#animateUserPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#animateComputerPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#disablePawns#0;class#Controller#0" expanded="false" />
             <element signature="method#disableUsersPawns#0;class#Controller#0" expanded="false" />
             <element signature="method#enablePawns#0;class#Controller#0" expanded="false" />
-            <element signature="method#computerTurn#0;class#Controller#0" expanded="false" />
             <element signature="method#checkForMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkIfOccupied#0;class#Controller#0" expanded="false" />
             <element signature="method#playGame#0;class#Controller#0" expanded="false" />
             <element signature="method#checkMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#bump#0;class#Controller#0" expanded="false" />
+            <element signature="method#slide#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSorryMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSwaps#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSorry#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSwap#0;class#Controller#0" expanded="false" />
+            <element signature="method#newWindow#0;class#Controller#0" expanded="false" />
             <element signature="method#helpClicked#0;class#Controller#0" expanded="false" />
+            <element signature="method#addPawnsToHome#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -648,7 +666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -663,7 +680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2505">
           <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -698,7 +714,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#initialize#0;class#Controller#0" expanded="false" />
             <element signature="method#startGame#0;class#Controller#0" expanded="false" />
             <element signature="method#startOver#0;class#Controller#0" expanded="false" />
@@ -710,15 +725,24 @@
             <element signature="method#movePawnFromStart#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawn#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawnBackwards#0;class#Controller#0" expanded="false" />
+            <element signature="method#animateUserPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#animateComputerPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#disablePawns#0;class#Controller#0" expanded="false" />
             <element signature="method#disableUsersPawns#0;class#Controller#0" expanded="false" />
             <element signature="method#enablePawns#0;class#Controller#0" expanded="false" />
-            <element signature="method#computerTurn#0;class#Controller#0" expanded="false" />
             <element signature="method#checkForMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkIfOccupied#0;class#Controller#0" expanded="false" />
             <element signature="method#playGame#0;class#Controller#0" expanded="false" />
             <element signature="method#checkMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#bump#0;class#Controller#0" expanded="false" />
+            <element signature="method#slide#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSorryMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSwaps#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSorry#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSwap#0;class#Controller#0" expanded="false" />
+            <element signature="method#newWindow#0;class#Controller#0" expanded="false" />
             <element signature="method#helpClicked#0;class#Controller#0" expanded="false" />
+            <element signature="method#addPawnsToHome#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -743,7 +767,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#initialize#0;class#Controller#0" expanded="false" />
             <element signature="method#startGame#0;class#Controller#0" expanded="false" />
             <element signature="method#startOver#0;class#Controller#0" expanded="false" />
@@ -755,15 +778,24 @@
             <element signature="method#movePawnFromStart#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawn#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawnBackwards#0;class#Controller#0" expanded="false" />
+            <element signature="method#animateUserPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#animateComputerPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#disablePawns#0;class#Controller#0" expanded="false" />
             <element signature="method#disableUsersPawns#0;class#Controller#0" expanded="false" />
             <element signature="method#enablePawns#0;class#Controller#0" expanded="false" />
-            <element signature="method#computerTurn#0;class#Controller#0" expanded="false" />
             <element signature="method#checkForMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkIfOccupied#0;class#Controller#0" expanded="false" />
             <element signature="method#playGame#0;class#Controller#0" expanded="false" />
             <element signature="method#checkMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#bump#0;class#Controller#0" expanded="false" />
+            <element signature="method#slide#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSorryMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSwaps#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSorry#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSwap#0;class#Controller#0" expanded="false" />
+            <element signature="method#newWindow#0;class#Controller#0" expanded="false" />
             <element signature="method#helpClicked#0;class#Controller#0" expanded="false" />
+            <element signature="method#addPawnsToHome#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -788,7 +820,6 @@
         <state relative-caret-position="2910">
           <caret line="207" column="39" selection-start-line="207" selection-start-column="39" selection-end-line="207" selection-end-column="39" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#initialize#0;class#Controller#0" expanded="false" />
             <element signature="method#startGame#0;class#Controller#0" expanded="false" />
             <element signature="method#startOver#0;class#Controller#0" expanded="false" />
@@ -800,15 +831,24 @@
             <element signature="method#movePawnFromStart#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawn#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawnBackwards#0;class#Controller#0" expanded="false" />
+            <element signature="method#animateUserPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#animateComputerPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#disablePawns#0;class#Controller#0" expanded="false" />
             <element signature="method#disableUsersPawns#0;class#Controller#0" expanded="false" />
             <element signature="method#enablePawns#0;class#Controller#0" expanded="false" />
-            <element signature="method#computerTurn#0;class#Controller#0" expanded="false" />
             <element signature="method#checkForMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkIfOccupied#0;class#Controller#0" expanded="false" />
             <element signature="method#playGame#0;class#Controller#0" expanded="false" />
             <element signature="method#checkMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#bump#0;class#Controller#0" expanded="false" />
+            <element signature="method#slide#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSorryMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSwaps#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSorry#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSwap#0;class#Controller#0" expanded="false" />
+            <element signature="method#newWindow#0;class#Controller#0" expanded="false" />
             <element signature="method#helpClicked#0;class#Controller#0" expanded="false" />
+            <element signature="method#addPawnsToHome#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -833,7 +873,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#initialize#0;class#Controller#0" expanded="false" />
             <element signature="method#startGame#0;class#Controller#0" expanded="false" />
             <element signature="method#startOver#0;class#Controller#0" expanded="false" />
@@ -845,15 +884,24 @@
             <element signature="method#movePawnFromStart#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawn#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawnBackwards#0;class#Controller#0" expanded="false" />
+            <element signature="method#animateUserPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#animateComputerPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#disablePawns#0;class#Controller#0" expanded="false" />
             <element signature="method#disableUsersPawns#0;class#Controller#0" expanded="false" />
             <element signature="method#enablePawns#0;class#Controller#0" expanded="false" />
-            <element signature="method#computerTurn#0;class#Controller#0" expanded="false" />
             <element signature="method#checkForMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkIfOccupied#0;class#Controller#0" expanded="false" />
             <element signature="method#playGame#0;class#Controller#0" expanded="false" />
             <element signature="method#checkMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#bump#0;class#Controller#0" expanded="false" />
+            <element signature="method#slide#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSorryMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSwaps#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSorry#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSwap#0;class#Controller#0" expanded="false" />
+            <element signature="method#newWindow#0;class#Controller#0" expanded="false" />
             <element signature="method#helpClicked#0;class#Controller#0" expanded="false" />
+            <element signature="method#addPawnsToHome#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -878,7 +926,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#initialize#0;class#Controller#0" expanded="false" />
             <element signature="method#startGame#0;class#Controller#0" expanded="false" />
             <element signature="method#startOver#0;class#Controller#0" expanded="false" />
@@ -890,15 +937,24 @@
             <element signature="method#movePawnFromStart#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawn#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawnBackwards#0;class#Controller#0" expanded="false" />
+            <element signature="method#animateUserPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#animateComputerPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#disablePawns#0;class#Controller#0" expanded="false" />
             <element signature="method#disableUsersPawns#0;class#Controller#0" expanded="false" />
             <element signature="method#enablePawns#0;class#Controller#0" expanded="false" />
-            <element signature="method#computerTurn#0;class#Controller#0" expanded="false" />
             <element signature="method#checkForMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkIfOccupied#0;class#Controller#0" expanded="false" />
             <element signature="method#playGame#0;class#Controller#0" expanded="false" />
             <element signature="method#checkMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#bump#0;class#Controller#0" expanded="false" />
+            <element signature="method#slide#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSorryMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSwaps#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSorry#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSwap#0;class#Controller#0" expanded="false" />
+            <element signature="method#newWindow#0;class#Controller#0" expanded="false" />
             <element signature="method#helpClicked#0;class#Controller#0" expanded="false" />
+            <element signature="method#addPawnsToHome#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -933,7 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1485">
           <caret line="99" column="20" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -943,7 +998,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5865">
           <caret line="428" column="0" selection-start-line="428" selection-start-column="0" selection-end-line="428" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -952,7 +1006,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1020,29 +1073,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/ControllerPopup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="106" column="40" selection-start-line="106" selection-start-column="40" selection-end-line="106" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initialize#0;class#ControllerPopup#0" expanded="false" />
-            <element signature="method#handleTen#0;class#ControllerPopup#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/help.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/help.fxml" />
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1069,8 +1100,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/out/production/SorryGUI/sample/sample.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        <state relative-caret-position="1140">
+          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1080,18 +1111,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Pawn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+        <state relative-caret-position="225">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="20" selection-end-column="35" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/ControllerPopup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#initialize#0;class#ControllerPopup#0" expanded="false" />
+            <element signature="method#handleTen#0;class#ControllerPopup#0" expanded="false" />
+            <element signature="method#handleSeven#0;class#ControllerPopup#0" expanded="false" />
+            <element signature="method#checkMoves#0;class#ControllerPopup#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="971" column="26" selection-start-line="971" selection-start-column="14" selection-end-line="971" selection-end-column="26" />
+        <state relative-caret-position="2685">
+          <caret line="709" column="55" selection-start-line="709" selection-start-column="55" selection-end-line="709" selection-end-column="55" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#initialize#0;class#Controller#0" expanded="false" />
             <element signature="method#startGame#0;class#Controller#0" expanded="false" />
             <element signature="method#startOver#0;class#Controller#0" expanded="false" />
@@ -1103,15 +1147,24 @@
             <element signature="method#movePawnFromStart#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawn#0;class#Controller#0" expanded="false" />
             <element signature="method#movePawnBackwards#0;class#Controller#0" expanded="false" />
+            <element signature="method#animateUserPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#animateComputerPawn#0;class#Controller#0" expanded="false" />
             <element signature="method#disablePawns#0;class#Controller#0" expanded="false" />
             <element signature="method#disableUsersPawns#0;class#Controller#0" expanded="false" />
             <element signature="method#enablePawns#0;class#Controller#0" expanded="false" />
-            <element signature="method#computerTurn#0;class#Controller#0" expanded="false" />
             <element signature="method#checkForMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkIfOccupied#0;class#Controller#0" expanded="false" />
             <element signature="method#playGame#0;class#Controller#0" expanded="false" />
             <element signature="method#checkMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#bump#0;class#Controller#0" expanded="false" />
+            <element signature="method#slide#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSorryMoves#0;class#Controller#0" expanded="false" />
+            <element signature="method#checkSwaps#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSorry#0;class#Controller#0" expanded="false" />
+            <element signature="method#handleSwap#0;class#Controller#0" expanded="false" />
+            <element signature="method#newWindow#0;class#Controller#0" expanded="false" />
             <element signature="method#helpClicked#0;class#Controller#0" expanded="false" />
+            <element signature="method#addPawnsToHome#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>

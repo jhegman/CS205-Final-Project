@@ -6,9 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -42,7 +39,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     private VBox rightPane, leftPane, blueSafe, greenSafe;
 
     @FXML
-    private Pane discardCard, blueHome, yellowHome, greenHome, redHome;
+    private Pane discardCard, blueHome, yellowHome, greenHome, redHome, greenHomeCircle, blueHomeCircle;
 
     @FXML
     private Button pickCard, help;
@@ -51,7 +48,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     private TextField playerName;
 
     @FXML
-    public Text textOutput, playerTurn;
+    public Text textOutput, playerTurn, numGreenPawnsHome, numBluePawnsHome;
 
     private Deck deck;
     public ArrayList<StackPane> tiles;
@@ -77,6 +74,8 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     int [] testMoves = {1,4,4,10,2,5};
     int g =0;
     ControllerPopup controller;
+    int bluePawnsInHome;
+    int greenPawnsInHome;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
@@ -138,6 +137,8 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 nameOfPlayer = playerName.getText();
                 gameBoard = new board();
                 nice = new computer(true);
+                tiles.get(30).getChildren().add(bluePawns[0].getCircle());
+                bluePawns[0].setLocation(30);
                 playGame();
 
             }
@@ -154,12 +155,18 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 for (int j = 0; j < 4; j++) {
                     tiles.get(i).getChildren().remove(bluePawns[j].getCircle());
                     blueHome.getChildren().remove(bluePawns[j].getCircle());
-                    tiles.get(i).getChildren().remove(yellowPawns[j].getCircle());
                     yellowHome.getChildren().remove(yellowPawns[j].getCircle());
-                    tiles.get(i).getChildren().remove(redPawns[j].getCircle());
                     redHome.getChildren().remove(redPawns[j].getCircle());
                     tiles.get(i).getChildren().remove(greenPawns[j].getCircle());
                     greenHome.getChildren().remove(greenPawns[j].getCircle());
+                }
+            }
+            blueHomeCircle.getChildren().clear();
+            greenHomeCircle.getChildren().clear();
+            for(int i=0;i<6;i++){
+                for(int j=0;j<4;j++){
+                blueSafeZone.get(i).getChildren().remove(bluePawns[j].getCircle());
+                    greenSafeZone.get(i).getChildren().remove(greenPawns[j].getCircle());
                 }
             }
             discardCard.getChildren().clear();
@@ -173,6 +180,10 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             playerOneTurn = true;
             gameBoard = new board();
             nice = new computer(true);
+            greenPawnsInHome = 0;
+            bluePawnsInHome =0;
+            numGreenPawnsHome.setText("Pawn's Home: 0");
+            numBluePawnsHome.setText("Pawn's Home: 0");
 
         }
     }
@@ -309,6 +320,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                     bump(b.getLocation(),Color.LIMEGREEN);
                 }
                 movePawnBackwards(b);
+                slide(b);
                 computerTurn();
 
         }
@@ -316,12 +328,12 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         else if(currentCard.getMoves() == 11 &&
                 controller.getSelectedButton().getId().equals("button1")){
             if (sorryClicks == 0 && c.getFill() == Color.BLUE) {
-                if (!blueHome.getChildren().contains(b.getCircle())) {
+                if (!blueHome.getChildren().contains(b.getCircle()) && !b.inSafeZone()) {
                     sorryPawn1 = b;
                     enablePawns(greenPawns);
                     sorryClicks++;
                 } else {
-                    playerTurn.setText("Must click pawn on board");
+                    playerTurn.setText("Must click pawn not in home or safe zone");
                 }
             } else if (sorryClicks == 1 && c.getFill() == Color.LIMEGREEN) {
                 if (!greenHome.getChildren().contains(g.getCircle())) {
@@ -414,7 +426,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 //check for open space when moving into home
                 if (!backwards && b.getLocation() <= 32 && occupied > 32) {
                     int position = occupied - 33;
-                    if (checkIfOccupied(blueSafeZone.get(position), b).equals("true")) {
+                    if (position!= 5 && checkIfOccupied(blueSafeZone.get(position), b).equals("true")) {
                         playerTurn.setText("Not a valid move");
                     } else {
                         disableUsersPawns(bluePawns, b);
@@ -437,6 +449,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             }
 
         }
+
     }
 
 
@@ -527,7 +540,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     Animates pawn forward a certain number of spaces
      */
     public void animateUserPawn(int spaces, Pawn p, boolean bump) {
-        Timeline animate = new Timeline(new KeyFrame(Duration.seconds(.5), new EventHandler<ActionEvent>() {
+        Timeline animate = new Timeline(new KeyFrame(Duration.seconds(.4), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -556,6 +569,15 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 else{
                 computerTurn();
                 }
+                if(p.getSafeZoneLocation() == 5){
+                    bluePawnsInHome++;
+                    blueSafeZone.get(5).getChildren().remove(p.getCircle());
+                    numBluePawnsHome.setText("Pawn's Home: "+bluePawnsInHome);
+                    addPawnsToHome(bluePawnsInHome, Color.BLUE);
+                }
+                if(bluePawnsInHome == 4){
+                    //END GAME
+                }
             }
         });
 
@@ -565,7 +587,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     Animates pawn forward a certain number of spaces
      */
     public void animateComputerPawn(int spaces, Pawn p, boolean bump) {
-        Timeline animate = new Timeline(new KeyFrame(Duration.seconds(.5), new EventHandler<ActionEvent>() {
+        Timeline animate = new Timeline(new KeyFrame(Duration.seconds(.4), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -590,6 +612,14 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 playerOneTurn = true;
                 disablePawns(bluePawns);
                 disablePawns(greenPawns);
+                if(p.getSafeZoneLocation() == 5){
+                    greenPawnsInHome++;
+                    greenSafeZone.get(5).getChildren().remove(p.getCircle());
+                    numGreenPawnsHome.setText("Pawn's Home: "+greenPawnsInHome);
+                }
+                if(bluePawnsInHome == 4){
+                    //END GAME
+                }
             }
         });
 
@@ -676,6 +706,8 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         //ERROR Here, If cant find pawn, computer wont move
         else{
             for(int i=0;i<4;i++){
+                System.out.println("loc"+greenPawns[i].getLocation());
+                System.out.println("pos"+positions[0]);
                 if(greenPawns[i].getLocation() ==positions[0] ){
                     if(positions[2]>59){
 
@@ -797,7 +829,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             }
             if (!backwards && b.getLocation() <= 32 && occupied > 32) {
                 int position = occupied - 33;
-                if (checkIfOccupied(blueSafeZone.get(position), b).equals("true")) {
+                if (position!= 5 && checkIfOccupied(blueSafeZone.get(position), b).equals("true")) {
                     move = false;
                 }
 
@@ -832,6 +864,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         if (color == Color.BLUE) {
             greenHome.getChildren().add(greenPawns[id].getCircle());
             greenPawns[id].getCircle().relocate(xLocation, yLocation);
+            greenPawns[id].setLocation(-1);
             nice.gotBumped(gameBoard,location);
             computerStart++;
         } else if (color == Color.LIMEGREEN) {
@@ -934,6 +967,9 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             if (blueHome.getChildren().contains(bluePawns[i].getCircle())) {
                 unmoveable1++;
             }
+            else if(bluePawns[i].inSafeZone()){
+                unmoveable1++;
+            }
         }
 
         if(unmoveable==4){
@@ -1019,6 +1055,45 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         tab1.setContent(showRules1);
         showRules2.setImage(rules2);
         tab2.setContent(showRules2);
+
+    }
+
+    /*
+    Adds pawns home
+     */
+    public void addPawnsToHome(int index, Color c){
+        index -= 1;
+        int xLocation = 0;
+        int yLocation = 0;
+        switch (index) {
+            case 1:
+                xLocation = 20;
+                break;
+            case 2:
+                xLocation = 0;
+                yLocation = 20;
+                break;
+            case 3:
+                xLocation = 20;
+                yLocation = 20;
+
+        }
+        if(c == Color.BLUE) {
+            Circle circle = new Circle(10);
+            circle.setFill(c);
+            circle.setStroke(Color.BLACK);
+            circle.setStrokeWidth(1.5);
+            blueHomeCircle.getChildren().add(circle);
+            circle.relocate(xLocation,yLocation);
+        }
+        else if(c == Color.LIMEGREEN){
+            Circle circle = new Circle(10);
+            circle.setFill(c);
+            circle.setStroke(Color.BLACK);
+            circle.setStrokeWidth(1.5);
+            greenHomeCircle.getChildren().add(circle);
+            circle.relocate(xLocation,yLocation);
+        }
 
     }
 }

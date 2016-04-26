@@ -21,7 +21,6 @@ public class ControllerPopup implements Initializable{
     private RadioButton selectedButton;
     private ToggleGroup group;
     Controller c;
-    int checkMove;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -109,7 +108,7 @@ public class ControllerPopup implements Initializable{
         for(int i = 0;i<4;i++){
             int location = c.bluePawns[i].getLocation();
             if(!c.checkMoves(c.bluePawns[i],moves)){
-                this.checkMove++;
+                checkMove++;
             }
 
         }
