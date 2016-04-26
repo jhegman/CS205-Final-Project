@@ -377,6 +377,14 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             blueSafeZone.get(p.getSafeZoneLocation() + 1).getChildren().add(p.getCircle());
             p.setSafeZoneLocation(p.getSafeZoneLocation() + 1);
 
+        } else if (p.getLocation() == 32 && p.getCircle().getFill() == Color.BLUE && p.inSafeZone() == false) {
+            blueSafeZone.get(0).getChildren().add(p.getCircle());
+            p.setSafeZoneLocation(0);
+            p.setInSafeZone(true);
+        } else if (p.inSafeZone()) {
+            blueSafeZone.get(p.getSafeZoneLocation() + 1).getChildren().add(p.getCircle());
+            p.setSafeZoneLocation(p.getSafeZoneLocation() + 1);
+
         } else {
             tiles.get(p.getLocation() + 1).getChildren().add(p.getCircle());
             p.setLocation(p.getLocation() + 1);
@@ -424,6 +432,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
 
             @Override
             public void handle(ActionEvent event) {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 if(spaces == 4){
                 movePawnBackwards(p);
@@ -479,6 +488,8 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         
 
 =======
+=======
+>>>>>>> master
                 if (spaces == 4) {
                     movePawnBackwards(p);
                 } else {
@@ -488,6 +499,9 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         }));
         animate.setCycleCount(spaces);
         animate.play();
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 
         //If users turn, wait for animation to finish
@@ -715,8 +729,111 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
 
 
 
+    /*
+    Check all available moves. Returns true if moves, false if no moves
+     */
+    public boolean checkMoves(Pawn b) {
+        boolean move = true;
+        boolean backwards = false;
+        //Check if can move from home
+        if (blueHome.getChildren().contains(b.getCircle()) && currentCard.getMoves() > 2) {
+            move = false;
+        } else if (blueHome.getChildren().contains(b.getCircle())
+                && currentCard.getMoves() <= 2) {
+            //check if a blue pawn is in the way
+            if (checkIfOccupied(tiles.get(34), b).equals("true")) {
+                move = false;
+            }
+        }
+        //Check if can move in home
+        else if (b.getLocation() < 33 && b.getLocation() + currentCard.getMoves() > 38) {
+            move = false;
+        }
+        //Check to see if user can move into home from safe zone
+        else if (b.inSafeZone() &&
+                b.getSafeZoneLocation() + currentCard.getMoves() > 5 && currentCard.getMoves() != 4) {
+            move = false;
+        }
+        //Check if own pawn is in way in safe zone
+        else if (b.inSafeZone() && b.getSafeZoneLocation() + currentCard.getMoves() <= 5) {
+            int position = b.getSafeZoneLocation() + currentCard.getMoves();
+
+            //If pawn is in space you're trying to move to
+            if (checkIfOccupied(blueSafeZone.get(position), b).equals("true")
+                    && b.getSafeZoneLocation() + currentCard.getMoves() != 5) {
+                move = false;
+            }
+        }
+        //Check for regular moves around board
+        else if (!blueHome.getChildren().contains(b.getCircle())) {
+            int occupied = 0;
+            if (currentCard.getMoves() == 4) {
+                occupied = b.getLocation() - currentCard.getMoves();
+                if (occupied < 0) {
+                    occupied = 60 + occupied;
+                    backwards = true;
+                }
+            } else {
+                occupied = b.getLocation() + currentCard.getMoves();
+                if (occupied > 59) {
+                    occupied = occupied - 60;
+                }
+            }
+            if (!backwards && b.getLocation() <= 32 && occupied > 32) {
+                int position = occupied - 33;
+                if (checkIfOccupied(blueSafeZone.get(position), b).equals("true")) {
+                    move = false;
+                }
+            } else if (checkIfOccupied(tiles.get(occupied), b).equals("true")) {
+                move = false;
+            }
+        }
+        return move;
+    }
+
+    /*
+    Bumps pawn back to home
+     */
+    public void bump(Pawn p, int location) {
+        double xLocation = 0, yLocation = 0;
+        Paint color = p.getCircle().getFill();
+        int id = Integer.parseInt(tiles.get(location).getChildren().get(0).getId());
+        switch (id) {
+            case 1:
+                xLocation = 20;
+                break;
+            case 2:
+                xLocation = 0;
+                yLocation = 20;
+                break;
+            case 3:
+                xLocation = 20;
+                yLocation = 20;
+
+        }
+        if (color == Color.BLUE) {
+            greenHome.getChildren().add(greenPawns[id].getCircle());
+            greenPawns[id].getCircle().relocate(xLocation, yLocation);
+        } else if (color == Color.GREEN) {
+            blueHome.getChildren().add(bluePawns[id].getCircle());
+            bluePawns[id].getCircle().relocate(xLocation, yLocation);
+        }
+    }
 
 
+    public void slide(Pawn p) {
+        if (p.getLocation() == 1 || p.getLocation() == 16 || p.getLocation() == 46) {
+            for(int i =0;i<3;i++) {
+                if (checkIfOccupied(tiles.get(p.getLocation()+1), p).equals("bump")) {
+                    bump(p, p.getLocation()+1);
+                }
+                movePawn(p);
+                System.out.println(p.getLocation());
+                System.out.println(checkIfOccupied(tiles.get(p.getLocation()), p));
+            }
+        }
+
+<<<<<<< HEAD
     /*
     Check all available moves. Returns true if moves, false if no moves
      */
@@ -823,6 +940,8 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> master
         if (p.getLocation() == 9 || p.getLocation() == 24 || p.getLocation() == 54) {
             for (int i = 0; i < 4; i++) {
                 if (checkIfOccupied(tiles.get(p.getLocation()+1), p).equals("bump")) {
@@ -834,6 +953,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     }
 }
 >>>>>>> master
+
 
 
 
