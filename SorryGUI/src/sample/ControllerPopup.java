@@ -74,14 +74,6 @@ public class ControllerPopup implements Initializable{
         }
     }
 
-    public void handleSeven(){
-        button1.setSelected(true);
-        button1.setText("Move forward 1 and 6");
-        button2.setText("Move forward 2 and 5");
-        button3.setText("Move forward 3 and 4");
-        button4.setText("Move forward 7");
-    }
-
     @FXML
     public void handleCloseButtonAction(ActionEvent event) {
         selectedButton = (RadioButton) group.getSelectedToggle();
@@ -114,4 +106,5 @@ public class ControllerPopup implements Initializable{
         }
         return checkMove <4;
     }
+
 }

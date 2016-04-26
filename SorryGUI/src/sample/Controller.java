@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -70,12 +71,11 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
     board gameBoard;
     computer nice;
     int[] positions; // Positions of Computer pawns
-    int computerStart = 3;
-    int [] testMoves = {1,4,4,10,2,5};
-    int g =0;
+    int computerStart;
     ControllerPopup controller;
     int bluePawnsInHome;
     int greenPawnsInHome;
+    int numberMoves;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
@@ -137,8 +137,8 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 nameOfPlayer = playerName.getText();
                 gameBoard = new board();
                 nice = new computer(true);
-                tiles.get(30).getChildren().add(bluePawns[0].getCircle());
-                bluePawns[0].setLocation(30);
+                //tiles.get(30).getChildren().add(bluePawns[0].getCircle());
+                //bluePawns[0].setLocation(30);
                 playGame();
 
             }
@@ -466,6 +466,7 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             disableUsersPawns(greenPawns, p);
             tiles.get(p.getLocation()).getChildren().add(p.getCircle());
         }
+        numberMoves++;
 
     }
 
@@ -557,6 +558,14 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         //If users turn, wait for animation to finish
         animate.setOnFinished(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                numberMoves++;
+                if(p.getSafeZoneLocation() == 5){
+                    bluePawnsInHome++;
+                    blueSafeZone.get(5).getChildren().remove(p.getCircle());
+                    numBluePawnsHome.setText("Pawn's Home: "+bluePawnsInHome);
+                    addPawnsToHome(bluePawnsInHome, Color.BLUE);
+                }
+                //Check for slides or bumps
                 slide(p);
                 if (bump) {
                     bump(occupied, Color.BLUE);
@@ -567,16 +576,12 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                     playerOneTurn = true;
                 }
                 else{
-                computerTurn();
-                }
-                if(p.getSafeZoneLocation() == 5){
-                    bluePawnsInHome++;
-                    blueSafeZone.get(5).getChildren().remove(p.getCircle());
-                    numBluePawnsHome.setText("Pawn's Home: "+bluePawnsInHome);
-                    addPawnsToHome(bluePawnsInHome, Color.BLUE);
-                }
-                if(bluePawnsInHome == 4){
-                    //END GAME
+                    if(bluePawnsInHome == 4){
+                        endGame(nameOfPlayer.toUpperCase());
+                    }
+                    else{
+                    computerTurn();
+                    }
                 }
             }
         });
@@ -604,22 +609,27 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         // wait for animation to finish
         animate.setOnFinished(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                slide(p);
-                if (bump) {
-                    bump(positions[2], Color.LIMEGREEN);
-                }
-                playerTurn.setText(nameOfPlayer + "'s Turn. Click deck to get card, then click blue pawn to move");
-                playerOneTurn = true;
-                disablePawns(bluePawns);
-                disablePawns(greenPawns);
+                numberMoves++;
                 if(p.getSafeZoneLocation() == 5){
                     greenPawnsInHome++;
                     greenSafeZone.get(5).getChildren().remove(p.getCircle());
                     numGreenPawnsHome.setText("Pawn's Home: "+greenPawnsInHome);
+                    addPawnsToHome(greenPawnsInHome, Color.LIMEGREEN);
                 }
-                if(bluePawnsInHome == 4){
-                    //END GAME
+                slide(p);
+                if (bump) {
+                    bump(positions[2], Color.LIMEGREEN);
                 }
+                if(greenPawnsInHome == 4){
+                    endGame("COMPUTER");
+                }
+                else{
+                playerTurn.setText(nameOfPlayer + "'s Turn. Click deck to get card, then click blue pawn to move");
+                playerOneTurn = true;
+                disablePawns(bluePawns);
+                disablePawns(greenPawns);
+                }
+
             }
         });
 
@@ -677,13 +687,17 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         //MOVE COMPUTER PAWN
         int [] positions = nice.makeMove(gameBoard, currentCard.getNumber());
         this.positions = positions;
-        g++;
+        for(int i=3;i>=0;i--){
+            if(greenHome.getChildren().contains(greenPawns[i].getCircle())){
+                computerStart = i;
+                break;
+            }
+        }
         if(positions[0] == -1){
             if (checkIfOccupied(tiles.get(4), greenPawns[computerStart]).equals("bump")) {
                 bump(4, Color.LIMEGREEN);
             }
             movePawnFromStart(greenPawns[computerStart],Color.LIMEGREEN);
-            computerStart--;
             playerTurn.setText(nameOfPlayer + "'s Turn. Click deck to get card, then click blue pawn to move");
             playerOneTurn = true;
             disablePawns(bluePawns);
@@ -706,8 +720,6 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
         //ERROR Here, If cant find pawn, computer wont move
         else{
             for(int i=0;i<4;i++){
-                System.out.println("loc"+greenPawns[i].getLocation());
-                System.out.println("pos"+positions[0]);
                 if(greenPawns[i].getLocation() ==positions[0] ){
                     if(positions[2]>59){
 
@@ -715,6 +727,10 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                     else if(checkIfOccupied(tiles.get(positions[2]),greenPawns[i]).equals("bump")){
                         bump = true;
                     }
+                    animateComputerPawn(positions[1],greenPawns[i],bump);
+                    break;
+                }
+                else if(greenPawns[i].inSafeZone() && greenPawns[i].getSafeZoneLocation() == positions[0]){
                     animateComputerPawn(positions[1],greenPawns[i],bump);
                     break;
                 }
@@ -812,6 +828,10 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
                 move = false;
             }
         }
+        //Check if pawn home
+        else if(b.getSafeZoneLocation() ==5){
+            move = false;
+        }
         //Check for regular moves around board
         else if (!blueHome.getChildren().contains(b.getCircle())) {
             int occupied = 0;
@@ -866,7 +886,6 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             greenPawns[id].getCircle().relocate(xLocation, yLocation);
             greenPawns[id].setLocation(-1);
             nice.gotBumped(gameBoard,location);
-            computerStart++;
         } else if (color == Color.LIMEGREEN) {
             blueHome.getChildren().add(bluePawns[id].getCircle());
             bluePawns[id].getCircle().relocate(xLocation, yLocation);
@@ -1095,6 +1114,16 @@ public class Controller implements Initializable,EventHandler<MouseEvent> {
             circle.relocate(xLocation,yLocation);
         }
 
+    }
+
+    /*
+    Ends Game
+     */
+    public void endGame(String winner){
+        disablePawns(bluePawns);
+        playerOneTurn = false;
+        playerTurn.setText(winner+ " WINS!");
+        playerTurn.setFont(Font.font ("Verdana", 14));
     }
 }
 

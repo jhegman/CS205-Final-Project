@@ -72,7 +72,7 @@
                </font>
             </Text>
             <Pane fx:id="blueHomeCircle" layoutX="468.0" layoutY="287.0" prefHeight="55.0" prefWidth="56.0" />
-            <Pane fx:id="greenHomeCircle" layoutX="26.0" layoutY="195.0" prefHeight="52.0" prefWidth="51.0" />
+            <Pane fx:id="greenHomeCircle" layoutX="33.0" layoutY="216.0" prefHeight="52.0" prefWidth="51.0" />
          </children></Pane>
    </center>
 </BorderPane>

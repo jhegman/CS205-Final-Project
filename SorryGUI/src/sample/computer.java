@@ -256,4 +256,8 @@ public class computer {
 		gameBoard.board[location].setOccupied(false,"none");
 		gameBoard.compStart++;
 	}
+	public boolean getNice(){
+		return nice;
 	}
+
+}

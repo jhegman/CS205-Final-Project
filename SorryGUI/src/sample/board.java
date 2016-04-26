@@ -6,8 +6,8 @@ public class board
 {
 	//the board starts on the green side and moves clockwise around the board from the top left
 	public space[] board=new space[60];
-	public space[] userSafe=new space[6];
-	public space[] compSafe=new space[6];
+	public space[] userSafe=new space[5];
+	public space[] compSafe=new space[5];
 	public int userHome, compHome;
 	public int userStart, compStart;
 	public int[] compPawns=new int[4];
@@ -54,7 +54,7 @@ public class board
 				place++;
 			}
 		}
-		for(int i=0;i<6;i++)
+		for(int i=0;i<5;i++)
 		{
 			userSafe[i]=new space("safe", "blue", false);
 			compSafe[i]=new space("safe", "green", false);
