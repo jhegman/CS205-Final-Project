@@ -19,6 +19,10 @@ public class computer {
 	// Pawns that will bump allies on a slide
 	private ArrayList<Integer> dontSlide = new ArrayList<Integer>();
 	boolean madeMove=true;
+	//did the computer swap
+	private boolean swapped;
+	private int switchTo;
+	private int switchWith;
 
 	public computer(boolean n) {
 		nice = n;
@@ -166,8 +170,6 @@ public class computer {
 		{
 			if(userPawnPositions.isEmpty() || pawnBoardPositions.isEmpty()){}
 			else{
-				int switchTo;
-				int switchWith;
 				Collections.sort(userPawnPositions);
 				Collections.sort(pawnBoardPositions);
 				if(userPawnPositions.get(0)<3)
@@ -186,6 +188,7 @@ public class computer {
 						swap(gameBoard, switchTo, switchWith);
 					}
 				}
+				swapped=true;
 				moved = true;
 			}
 		}
@@ -298,6 +301,7 @@ public class computer {
 	}
 	// find a move for the computer, cards represented as an integer from 1-11
 	public int[] makeMove(board gameBoard, int cardValue) {
+		swapped=false;
 		int moveValue;
 		madeMove=true;
 		if(cardValue==4)
@@ -340,10 +344,18 @@ public class computer {
 			 niceMove(gameBoard, moveValue);
 			 nice = !nice;
 		}
-		int[] positions=gameBoard.returnPositions();
+		int[] positions=new int[3];
+        int[] p=gameBoard.returnPositions();
+        positions[0]=p[0];
+        positions[2]=p[1];
 		if(madeMove)
 		{
-			//positions[1]=Math.abs(moveValue);
+			positions[1]=Math.abs(moveValue);
+			if(swapped)
+			{
+				positions[0]=switchWith;
+				positions[2]=switchTo;
+			}
 		}
 		else{
 			positions[0]=0;
@@ -355,5 +367,9 @@ public class computer {
 	{
 		gameBoard.board[location].setOccupied(false, "none");
 		gameBoard.compStart++;
+	}
+	public boolean getSwapped()
+	{
+		return swapped;
 	}
 	}
