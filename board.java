@@ -5,7 +5,7 @@ public class board
 {
 	//the board starts on the green side and moves clockwise around the board from the top left
 	public space[] board=new space[60];
-	public space[] compSafe=new space[6];
+	public space[] compSafe=new space[5];
 	public int userHome, compHome;
 	public int userStart, compStart;
 	public int[] compPawns=new int[4];
@@ -52,7 +52,7 @@ public class board
 				place++;
 			}
 		}
-		for(int i=0;i<6;i++)
+		for(int i=0;i<5;i++)
 		{
 			compSafe[i]=new space("safe", "green", false);
 		}
@@ -159,7 +159,7 @@ public class board
 		compStartPosition=-1;
 		compEndPosition=4;
 	}
-	//move a pawn into the computer's safezone(from the space adjacent to it)
+	//move a pawn into the computer's safezone
 	public void moveCompSafe(int start, int end)
 	{
 		compStartPosition=start;
@@ -257,4 +257,9 @@ public class board
 		System.out.println("There are/is "+compStart+" pawn(s) in the computer's start space");
 		System.out.println("There are/is "+compHome+" pawn(s) in the computer's home space");
 	}	
+	public void moveUser(int start, int end)
+	{
+		board[start].setOccupied(false, "none");
+		board[end].setOccupied(true, "user");
+	}
 }
