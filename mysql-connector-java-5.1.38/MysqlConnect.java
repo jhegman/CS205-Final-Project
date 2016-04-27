@@ -13,10 +13,8 @@ import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 /**
-
    Created by Gretchen. Based on Robert Erickson's code. This class connects to SQL Database, and reads in data passed
    in as statistics from the game Sorry.
-
 */
 
 public class MysqlConnect{
@@ -79,16 +77,4 @@ public class MysqlConnect{
    		
        }  
       
-	
-}
-
-            
-
- 
-   
-   
-   
-   
-
-
-
+}	

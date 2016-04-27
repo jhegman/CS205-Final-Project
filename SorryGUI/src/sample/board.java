@@ -1,3 +1,4 @@
+package sample;
 import java.util.ArrayList;
 
 
@@ -5,12 +6,14 @@ public class board
 {
 	//the board starts on the green side and moves clockwise around the board from the top left
 	public space[] board=new space[60];
-	public space[] userSafe=new space[6];
-	public space[] compSafe=new space[6];
+	public space[] userSafe=new space[5];
+	public space[] compSafe=new space[5];
 	public int userHome, compHome;
 	public int userStart, compStart;
 	public int[] compPawns=new int[4];
 	public int[] userPawns=new int[4];
+	private int compStartPosition;
+	private int compEndPosition;
 	//Create a board with 60 spaces, two start spaces, and two safezones/home spaces
 	public board()
 	{
@@ -51,7 +54,7 @@ public class board
 				place++;
 			}
 		}
-		for(int i=0;i<6;i++)
+		for(int i=0;i<5;i++)
 		{
 			userSafe[i]=new space("safe", "blue", false);
 			compSafe[i]=new space("safe", "green", false);
@@ -65,11 +68,6 @@ public class board
 	public int getCompStart()
 	{
 		return compStart;
-	}
-	//get the number of pawns in the user's start space
-	public int getUserStart()
-	{
-		return userStart;
 	}
 	//swap the position of two pawns(with SORRY! card)
 	public void sorry(String player,int end)
@@ -101,9 +99,18 @@ public class board
 		board[end].setOccupied(true, board[start].getPlayer());
 		board[start].setOccupied(false, "none");
 	}
+	public int[] returnPositions()
+	{
+		int[] positions=new int[2];
+		positions[0]=compStartPosition;
+		positions[1]=compEndPosition;
+		return positions;
+	}
 	//move a pawn from one space to another on the main board
 	public void move(int start, int end)
 	{
+		compStartPosition=start;
+		compEndPosition=end;
 		space endSpace=board[end];
 		space startSpace=board[start];
 		if(startSpace.getPlayer().equals(endSpace.getPlayer()))
@@ -112,6 +119,7 @@ public class board
 		}
 		else if(endSpace.getType().equals("slidestart") && (startSpace.getPlayer().equals("user") && !(endSpace.getColor().equals("blue"))))
 		{
+			int slidFrom=end;
 			bump(start,end);
 			end++;
 			while(board[end].getType().equals("slide"))
@@ -120,10 +128,12 @@ public class board
 				end++;
 			}
 			board[end-1].setOccupied(true, "player");
-			board[start+1].setOccupied(false, "none");
+			System.out.println(slidFrom);
+			board[slidFrom].setOccupied(false, "none");
 		}
 		else if(endSpace.getType().equals("slidestart") && (startSpace.getPlayer().equals("computer") && !(endSpace.getColor().equals("green"))))
 		{
+			int slidFrom=end;
 			bump(start,end);
 			end++;
 			while(board[end].getType().equals("slide"))
@@ -132,7 +142,7 @@ public class board
 				end++;
 			}
 			board[end-1].setOccupied(true, "computer");
-			board[start+1].setOccupied(false, "none");
+			board[slidFrom].setOccupied(false, "none");
 		}
 		else if(endSpace.getPlayer().equals("none"))
 		{
@@ -148,43 +158,40 @@ public class board
 	public void moveInCompSafeZone(int start, int end)
 	{
 		compSafe[start].setOccupied(false, "none");
+		compStartPosition=start;
 		compSafe[end].setOccupied(true, "computer");
+		compEndPosition=end;
 	}
 	//move a pawn out of the computer's start space
 	public void moveCompStart()
 	{
 		compStart--;
 		board[4].setOccupied(true, "computer");
-	}
-	//move a pawn out of the user's start space
-	public void moveUserStart()
-	{
-		userStart--;
-		board[34].setOccupied(true, "user");
+		compStartPosition=-1;
+		compEndPosition=4;
 	}
 	//move a pawn into the computer's safezone(from the space adjacent to it)
-	public void moveCompSafe(int amount)
+	public void moveCompSafe(int start, int end)
 	{
-		board[2].setOccupied(false, "none");
-		compSafe[amount-1].setOccupied(true, "computer");
-	}
-	//move a pawn into the user's safe zone(from the space adjacent to it)
-	public void moveUserSafe(int amount)
-	{
-		board[32].setOccupied(false, "none");
-		userSafe[amount-1].setOccupied(true, "user");
+		compStartPosition=start;
+		compEndPosition=57+end;
+		board[start].setOccupied(false, "none");
+		if(end==8)
+		{
+			compHome++;
+		}
+		else
+		{
+			compSafe[end-3].setOccupied(true, "computer");
+		}
 	}
 	//move a pawn into the computer's home space
 	public void moveCompHome(int start)
 	{
+		compStartPosition=start;
+		compEndPosition=70;
 		compSafe[start].setOccupied(false, "none");
 		compHome++;
-	}
-	//move a pawn into the user's home space
-	public void moveUserHome(int start)
-	{
-		compSafe[start].setOccupied(false, "none");
-		userHome++;
 	}
 	//return the positions of the computer's pawns on the main board
 	public ArrayList<Integer> getComputerBoardPositions()
@@ -213,32 +220,6 @@ public class board
 			}
 		}
 		return safePositions;
-	}
-	//return the positions of the user's pawns on the main board
-	public ArrayList<Integer> getUserBoardPositions()
-	{
-		ArrayList <Integer> uBoardPositions=new ArrayList <Integer>();
-		for(int i=0;i<board.length;i++)
-		{
-			if(board[i].getPlayer().equals("user"))
-			{
-				uBoardPositions.add(i);
-			}
-		}
-		return uBoardPositions;
-	}
-	//return the positions of the user's pawns in the safezone
-	public ArrayList<Integer> getUserSafePositions()
-	{
-		ArrayList <Integer> uSafePositions=new ArrayList <Integer>();
-		for(int i=0;i<userSafe.length;i++)
-		{
-			if(userSafe[i].getPlayer().equals("human"))
-			{
-				uSafePositions.add(i);
-			}
-		}
-		return uSafePositions;
 	}
 	//print out the board and safe zones with positions of all pawns and special tiles labeled
 	public void printBoard()
@@ -269,5 +250,7 @@ public class board
 		{
 			System.out.println("There is a computer pawn in the safezone at: "+i);
 		}
+		System.out.println("There are/is "+compStart+" pawn(s) in the computer's start space");
+		System.out.println("There are/is "+compHome+" pawn(s) in the computer's home space");
 	}	
 }

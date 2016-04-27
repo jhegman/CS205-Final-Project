@@ -32,6 +32,7 @@ public class Main extends Application{
         primaryStage.getScene().getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));//add image to stage
         
         primaryStage.show();
+
     }
 
 

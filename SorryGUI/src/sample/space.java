@@ -1,3 +1,4 @@
+package sample;
 
 public class space {
 	/*Occupied tells whether or not the space has a pawn on it. 
